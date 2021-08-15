@@ -8,4 +8,9 @@ router.get('/', async (req, res) => {
     res.json(users);
 });
 
+router.post('/', async (req, res) => {
+    const newUser = await User.create(req.body).catch(err => {res.status(500).json('unable to create user')});
+    res.status(201).json(newUser);
+});
+
 module.exports = router;
