@@ -10,8 +10,21 @@ router.get('/', async (req, res) => {
 
 router.post('/', async (req, res) => {
     const newUser = await User.create(req.body).catch(err => {res.status(500).json('unable to create user')});
-    res.status(201).json(newUser);
+    req.session.save(() => {
+        req.session.loggedIn = true;
+        res.status(201).json(newUser);
+    });
 });
+
+router.post('/logout', (req, res) => {
+    if (req.session.loggedIn) {
+      req.session.destroy(() => {
+        res.status(204).end();
+      });
+    } else {
+      res.status(404).end();
+    }
+  });
 
 router.get('/sign-in/:username', async (req, res) => {
     const user = await User.findOne({ where: { username: req.params.username } }).catch(err => {
