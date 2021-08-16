@@ -8,6 +8,11 @@ const displayLogIn = (event) => {
   chooseLoginEl.parentNode.removeChild(chooseLoginEl);
   chooseCreateEl.parentNode.removeChild(chooseCreateEl);
 
+  const columnsDiv = document.createElement('div');
+  columnsDiv.classList.add('columns');
+  const singleColumnDiv = document.createElement('div');
+  singleColumnDiv.classList.add('column', 'is-half');
+
   const loginForm = document.createElement('form');
   const usernameInput = document.createElement('input');
   const passwordInput = document.createElement('input');
@@ -24,7 +29,9 @@ const displayLogIn = (event) => {
   loginForm.appendChild(passwordInput);
   loginForm.appendChild(submitBtnEl);
 
-  document.body.appendChild(loginForm);
+  singleColumnDiv.appendChild(loginForm);
+  columnsDiv.appendChild(singleColumnDiv);
+  document.body.appendChild(columnsDiv);
 
   const handleLogin = async (username, password) => {
 
@@ -69,6 +76,11 @@ const displayCreateUser = (event) => {
   chooseLoginEl.parentNode.removeChild(chooseLoginEl);
   chooseCreateEl.parentNode.removeChild(chooseCreateEl);
 
+  const columnsDiv = document.createElement('div');
+  columnsDiv.classList.add('columns');
+  const singleColumnDiv = document.createElement('div');
+  singleColumnDiv.classList.add('column', 'is-half');
+
   const createForm = document.createElement('form');
   const usernameInput = document.createElement('input');
   const passwordInput = document.createElement('input');
@@ -79,13 +91,18 @@ const displayCreateUser = (event) => {
   usernameLabel.textContent = 'username: ';
   passwordLabel.textContent = 'password: ';
 
+  passwordInput.classList.add('input');
+  usernameInput.classList.add('input');
+
   createForm.appendChild(usernameLabel);
   createForm.appendChild(usernameInput);
   createForm.appendChild(passwordLabel);
   createForm.appendChild(passwordInput);
   createForm.appendChild(submitBtnEl);
 
-  document.body.appendChild(createForm);
+  singleColumnDiv.appendChild(createForm);
+  columnsDiv.appendChild(singleColumnDiv);
+  document.body.appendChild(columnsDiv);
 
   const handleCreateUser = async (username, password) => {
 
