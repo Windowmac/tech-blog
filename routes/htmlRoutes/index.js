@@ -6,7 +6,7 @@ router.get('/', (req, res) => {
   res.render('sign-in');
 });
 
-router.get('/:username', async (req, res) => {
+router.get('/users/:username', async (req, res) => {
   const dbPosts = await Post.findAll({
     include: {
       model: User,
@@ -63,10 +63,10 @@ router.get('/:username', async (req, res) => {
   }
 });
 
-router.get('/posts/:post-id', async (req, res) => {
+router.get('/posts/:postId', async (req, res) => {
   const dbPost = await Post.findOne({ 
     where: {
-      id: req.params.post-id
+      id: req.params.postId
   },
     include: {
       model: User,
@@ -76,9 +76,7 @@ router.get('/posts/:post-id', async (req, res) => {
     res.status(500).json('unable to find post');
   });
 
-  const post = dbPost.map((post) =>
-  post.get({ plain: true })
-  );
+  const post = dbPost.get({ plain: true });
 
   res.render('post', {
     post,

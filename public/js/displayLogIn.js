@@ -65,7 +65,7 @@ const displayLogIn = (event) => {
       });
 
       if (response.ok) {
-        document.location.replace(`/${username}`);
+        document.location.replace(`/users/${username}`);
       } else {
         alert('Failed to log in.');
       }

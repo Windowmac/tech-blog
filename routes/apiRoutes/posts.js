@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Post = require('../../db/models/Post.js');
 const User = require('../../db/models/User.js');
+const Comment = require('../../db/models/Comment.js');
 
 router.get('/', async (req, res) => {
   const posts = await Post.findAll().catch((err) => {
