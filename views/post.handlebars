@@ -1,0 +1,41 @@
+{{#if loggedIn}}
+  <div class='columns is-centered'>
+    <div class='column is-half'>
+      <div class='box'>
+        <h3>{{post.title}}</h3>
+        <p>{{post.content}}</p>
+        <p>posted by: {{post.user.username}}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class='columns is-centered'>
+    <div class='column is-half'>
+      {{#each post.comment}}
+        <div class='box'>
+          <p>{{post.content}}</p>
+        </div>
+      {{/each}}
+    </div>
+  </div>
+
+  <div class='columns'>
+    <div class='column is-half'>
+      <div class='box'>
+        <textarea
+          id='comment-text'
+          class='textarea'
+          placeholder='comment'
+        ></textarea>
+      </div>
+    </div>
+    <button
+      class='button is-dark'
+      id='comment-btn'
+      data-value='{{post.id}}'
+    >post comment</button>
+  </div>
+{{else}}
+  <a href='/'>Login</a>
+{{/if}}
+<script src='../js/post.js'></script>

@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { Post, User } = require('../../db/models')
+const { Post, User, Comment } = require('../../db/models')
 
 router.get('/', (req, res) => {
   res.render('sign-in');
@@ -9,33 +9,79 @@ router.get('/', (req, res) => {
 router.get('/:username', async (req, res) => {
   const dbPosts = await Post.findAll({
     include: {
-      model: User
+      model: User,
+      model: Comment
     }
   }).catch((err) => {
     res.status(500).json('unable to find posts');
   });
 
-  console.log(JSON.stringify(dbPosts));
+  if(dbPosts){
+    console.log(JSON.stringify(dbPosts));
 
-  const allPosts = dbPosts.map((post) =>
-  post.get({ plain: true })
-  );
+    const allPosts = dbPosts.map((post) =>
+    post.get({ plain: true })
+    );
 
-  const dbUserPosts = await Post.findAll({
+    const user = await User.findOne({
+      where: {
+        username: req.params.username
+      }
+    }).catch((err) => {
+      res.status(500).json('unable to find user');
+    });
+
+    if(user){
+      const userId = user.id;
+      const dbUserPosts = await Post.findAll({
+        where: {
+          user_id: userId
+        }
+      }).catch((err) => {
+        res.status(500).json('--------unable to find posts');
+      });
+    
+      if(dbUserPosts){
+        const userPosts = dbUserPosts.map((post) =>
+        post.get({ plain: true })
+        );
+        res.render('homepage', {
+          allPosts,
+          userPosts,
+          loggedIn: req.session.loggedIn,
+        });
+      }
+    }
+  } else {
+    const allPosts = [];
+    const userPosts = [];
+    res.render('homepage', {
+      allPosts,
+      userPosts,
+      loggedIn: req.session.loggedIn,
+    });
+  }
+});
+
+router.get('/posts/:post-id', async (req, res) => {
+  const dbPost = await Post.findOne({ 
     where: {
-      username: req.params.username
+      id: req.params.post-id
+  },
+    include: {
+      model: User,
+      model: Comment
     }
   }).catch((err) => {
-    res.status(500).json('unable to find posts');
+    res.status(500).json('unable to find post');
   });
 
-  const userPosts = dbUserPosts.map((post) =>
+  const post = dbPost.map((post) =>
   post.get({ plain: true })
   );
 
-  res.render('homepage', {
-    allPosts,
-    userPosts,
+  res.render('post', {
+    post,
     loggedIn: req.session.loggedIn,
   });
 });
