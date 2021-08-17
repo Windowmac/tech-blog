@@ -8,7 +8,7 @@ const path = require('path');
 const session = require('express-session');
 
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
-const PORT = process.env.PORT || 3306;
+const PORT = process.env.PORT || 3001;
 
 app.use(express.json());
 app.use(express.urlencoded( { extended: true }));
@@ -20,7 +20,7 @@ const sess = {
       maxAge: 900000,
       httpOnly: true,
       secure: false,
-      sameSite: 'strict',
+      sameSite: 'lax',
     },
     resave: false,
     saveUninitialized: true,
