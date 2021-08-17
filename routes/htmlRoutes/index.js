@@ -7,6 +7,7 @@ router.get('/', (req, res) => {
 });
 
 router.get('/users/:username', async (req, res) => {
+  const username = req.params.username;
   const dbPosts = await Post.findAll({
     include: {
       model: User,
@@ -17,7 +18,6 @@ router.get('/users/:username', async (req, res) => {
   });
 
   if(dbPosts){
-    console.log(JSON.stringify(dbPosts));
 
     const allPosts = dbPosts.map((post) =>
     post.get({ plain: true })
@@ -46,6 +46,7 @@ router.get('/users/:username', async (req, res) => {
         post.get({ plain: true })
         );
         res.render('homepage', {
+          userId,
           allPosts,
           userPosts,
           loggedIn: req.session.loggedIn,
@@ -56,6 +57,7 @@ router.get('/users/:username', async (req, res) => {
     const allPosts = [];
     const userPosts = [];
     res.render('homepage', {
+      userId,
       allPosts,
       userPosts,
       loggedIn: req.session.loggedIn,
@@ -74,7 +76,6 @@ router.get('/posts/:postId', async (req, res) => {
   });
 
   const post = dbPost.get({ plain: true });
-  console.log(post);
 
   res.render('post', {
     post,

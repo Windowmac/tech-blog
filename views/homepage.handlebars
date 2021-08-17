@@ -17,6 +17,13 @@
         <li>{{this.title}}</li>
         {{/each}}
       </ul>
+      <input id="post-title" class="input" type="text" placeholder="Title">
+      <textarea
+          id='post-text'
+          class='textarea'
+          placeholder='comment'
+        ></textarea>
+      <button id="create-post" class="button is-dark" data-value="{{userId}}">Create Post</button>
     </div>
 
   </div>
