@@ -15,12 +15,27 @@ router.get('/:username', async (req, res) => {
     res.status(500).json('unable to find posts');
   });
 
-  const posts = dbPosts.map((post) =>
+  console.log(JSON.stringify(dbPosts));
+
+  const allPosts = dbPosts.map((post) =>
+  post.get({ plain: true })
+  );
+
+  const dbUserPosts = await Post.findAll({
+    where: {
+      username: req.params.username
+    }
+  }).catch((err) => {
+    res.status(500).json('unable to find posts');
+  });
+
+  const userPosts = dbUserPosts.map((post) =>
   post.get({ plain: true })
   );
 
   res.render('homepage', {
-    posts,
+    allPosts,
+    userPosts,
     loggedIn: req.session.loggedIn,
   });
 });
