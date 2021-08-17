@@ -8,7 +8,7 @@ const handleComment = async (comment, postId) => {
     };
 
     if (body.content.length) {
-      const response = await fetch(`/api/comment/${postId}`, {
+      const response = await fetch(`/api/comments/${postId}`, {
         method: 'POST',
         body: JSON.stringify(body),
         headers: { 'Content-Type': 'application/json' },
@@ -25,5 +25,5 @@ const handleComment = async (comment, postId) => {
   };
 
 commentBtn.addEventListener('click', () => {
-    handleComment(body.content)
+    handleComment(commentText.value, commentBtn.dataset.value);
 })

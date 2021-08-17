@@ -68,15 +68,13 @@ router.get('/posts/:postId', async (req, res) => {
     where: {
       id: req.params.postId
   },
-    include: {
-      model: User,
-      model: Comment
-    }
+  include: [{model: User }, {model: Comment}]
   }).catch((err) => {
     res.status(500).json('unable to find post');
   });
 
   const post = dbPost.get({ plain: true });
+  console.log(post);
 
   res.render('post', {
     post,

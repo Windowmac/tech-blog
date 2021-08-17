@@ -9,11 +9,13 @@ router.get('/', async (req, res) => {
   res.status(200).json(comments);
 });
 
-router.post('/:post-id', async (req, res) => {
+router.post('/:postId', async (req, res) => {
     const fullRequest = req.body;
-    fullRequest.post_id = req.params.post-id;
+    fullRequest.post_id = req.params.postId;
     const newComment = await Comment.create(req.body).catch((err) => {
       res.status(500).json('unable to create comment');
     });
     res.status(201).json(newComment);
   });
+
+module.exports = router;

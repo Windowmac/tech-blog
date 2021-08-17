@@ -72,7 +72,7 @@ const displayCreateUser = (event) => {
       });
 
     if (result.id) {
-      window.location.href = `/${body.username}`;
+      window.location.href = `/users/${body.username}`;
     } else {
       alert('error with user creation');
       window.location.href = '/';

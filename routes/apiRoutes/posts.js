@@ -5,7 +5,9 @@ const User = require('../../db/models/User.js');
 const Comment = require('../../db/models/Comment.js');
 
 router.get('/', async (req, res) => {
-  const posts = await Post.findAll().catch((err) => {
+  const posts = await Post.findAll({
+    include: [{model: User }, {model: Comment}]
+  }).catch((err) => {
     res.status(500).json('unable to find posts');
   });
   res.status(200).json(posts);

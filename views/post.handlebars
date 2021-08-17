@@ -2,7 +2,7 @@
   <div class='columns is-centered'>
     <div class='column is-half'>
       <div class='box'>
-        <h3>{{post.title}}</h3>
+        <p><strong>{{post.title}}</strong></p>
         <p>{{post.content}}</p>
         <p>posted by: {{post.user.username}}</p>
       </div>
@@ -11,9 +11,9 @@
 
   <div class='columns is-centered'>
     <div class='column is-half'>
-      {{#each post.comment}}
+      {{#each post.comments}}
         <div class='box'>
-          <p>{{post.content}}</p>
+          <p>{{this.content}}</p>
         </div>
       {{/each}}
     </div>
@@ -27,13 +27,13 @@
           class='textarea'
           placeholder='comment'
         ></textarea>
+        <button
+          class='button is-dark'
+          id='comment-btn'
+          data-value='{{post.id}}'
+        >post comment</button>
       </div>
     </div>
-    <button
-      class='button is-dark'
-      id='comment-btn'
-      data-value='{{post.id}}'
-    >post comment</button>
   </div>
 {{else}}
   <a href='/'>Login</a>
