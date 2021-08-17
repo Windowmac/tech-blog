@@ -1,18 +1,16 @@
-    {{#if loggedIn}}
-    <div class="columns">
-  <div class="column">
-    First column
+{{#if loggedIn}}
+  <div class='columns'>
+    <div class='column'>
+      First column
+    </div>
+    <div class='column'>
+      Second column
+    </div>
   </div>
-  <div class="column">
-    Second column
-  </div>
-</div>
 
+  <button id='logout' class='button is-dark'>Logout</button>
+{{else}}
+  <a href='/'>Login</a>
+{{/if}}
 
-
-    <button id="logout" class="button is-dark">Logout</button>
-    {{else}}
-    <a href="/">Login</a>
-    {{/if}}
-
-    <script src="../js/homepage.js"></script>
+<script src='../js/homepage.js'></script>

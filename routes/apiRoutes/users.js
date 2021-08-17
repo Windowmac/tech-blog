@@ -36,13 +36,20 @@ router.post('/sign-in/:username', async (req, res) => {
   }).catch((err) => {
     res.status(500).json('error finding users :(');
   });
-  const validated = await user.validatePassword(req.body.password).catch(err => {
-    res.status(404).json('invalid login');
-  });
-  req.session.save(() => {
-    req.session.loggedIn = true;
-    res.status(202).json(validated);
-  });
+  if(user){
+    const validated = await user.validatePassword(req.body.password).catch(err => {
+      res.status(404).json('invalid login');
+    });
+    if(validated){
+      req.session.save(() => {
+        req.session.loggedIn = true;
+        res.status(202).json(validated);
+      });
+    } else {
+      res.status(404).json('invalid username or password');
+    }
+  }
+
 });
 
 module.exports = router;
