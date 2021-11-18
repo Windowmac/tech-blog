@@ -38,7 +38,7 @@ Create an account, the cookie keeps you logged in for the duration of its lifesp
 
 ---
 
-[![Demo Video](./assets/images/tech-blog-image.png)]
+![Demo Video](./assets/images/tech-blog-image.png)
 
 ## Collaboration:
 
